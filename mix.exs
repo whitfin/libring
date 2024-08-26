@@ -8,7 +8,7 @@ defmodule HashRing.Mixfile do
     [
       app: :libring,
       version: @version,
-      elixir: "~> 1.11",
+      elixir: "~> 1.6",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       description: "A fast consistent hash ring implementation in Elixir",

@@ -39,7 +39,7 @@ defmodule HashRing.Utils do
 
           {:error, reason} ->
             :ok =
-              Logger.warning(
+              warn(
                 "[libring] ignore_node?/3: invalid blacklist pattern (#{inspect(pattern)}): #{inspect(reason)}"
               )
 
@@ -63,7 +63,7 @@ defmodule HashRing.Utils do
 
           {:error, reason} ->
             :ok =
-              Logger.warning(
+              warn(
                 "[libring] ignore_node?/3: invalid whitelist pattern (#{inspect(pattern)}): #{inspect(reason)}"
               )
 
@@ -94,5 +94,14 @@ defmodule HashRing.Utils do
       :else ->
         true
     end
+  end
+
+  # Shim the warning log for older Elixir versions
+  if Version.match?(System.version(), ">= 1.11.0") do
+    defp warn(msg),
+      do: Logger.warning(msg)
+  else
+    defp warn(msg),
+      do: Logger.warn(msg)
   end
 end
